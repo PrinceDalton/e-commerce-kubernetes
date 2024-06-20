@@ -15,16 +15,9 @@ spec:
       containers:
         - name: redis
           image: redis:6.0-alpine
-          command: ["redis-server", "/etc/redis/redis.conf"]
-          volumeMounts:
-            - name: redis-conf
-              mountPath: /etc/redis
-              readOnly: true
       volumes:
-        - name: redis-conf
-          configMap:
-            name: redis-config
-      restartPolicy: Always
+        - name: redis-data
+          emptyDir: {}
 
 ---
 apiVersion: v1

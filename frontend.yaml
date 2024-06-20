@@ -28,24 +28,18 @@ spec:
       volumes:
         - name: wait-for-it
           emptyDir: {}
-      initContainers:
-        - name: wait-for-it
-          image: busybox
-          command: ["sh", "-c", "cp /wait-for-it.sh /mnt/wait-for-it.sh"]
-          volumeMounts:
-            - name: wait-for-it
-              mountPath: "/mnt"
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend
+  name: server
 spec:
   selector:
     app: frontend
   ports:
-    - protocol: TCP
+    - name: http
+      protocol: TCP
       port: 3000
       targetPort: 3000
   type: NodePort

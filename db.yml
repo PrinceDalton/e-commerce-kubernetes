@@ -1,32 +1,3 @@
-# apiVersion: v1
-# kind: PersistentVolume
-# metadata:
-#   name: database-pv
-# spec:
-#   capacity:
-#     storage: 200Mi
-#   accessModes:
-#     - ReadWriteMany
-#   storageClassName: glusterfile
-#   persistentVolumeReclaimPolicy: Retain
-#   glusterfs:
-#     endpoints: glusterfs-cluster
-#     path: database-path
-#     readOnly: false
-# ---
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-#   name: database-data
-# spec:
-#   accessModes:
-#     - ReadWriteMany
-#   storageClassName: glusterfile
-#   resources:
-#     requests:
-#       storage: 100Mi
-
----      
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -59,10 +30,10 @@ spec:
     - metadata:
         name: database-data
       spec:
-        accessModes: ["ReadWriteMany"]
-        storageClassName: local-path
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: standard
         resources:
-          requests:
+          requests: 
             storage: 100Mi
 
 ---
